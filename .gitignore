@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+public/docs
+.ENV.*
+.turbo
+
+.vscode/*.code-workspace
+.vscode/launch.json
+
+volumes/
+
+**/generated/
+
+**/*.env

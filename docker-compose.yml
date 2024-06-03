@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16.1
+    container_name: wex-db
+    env_file:
+      - .ENV.DB
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data/
+    healthcheck:
+      test: ['CMD', 'pg_isready']
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+  db-migration:
+    image: wex-db-migration
+    build:
+      context: ./db/api
+      dockerfile: Dockerfile
+    container_name: wex-db-migration
+    env_file:
+      - .ENV.DB
+    depends_on:
+      db:
+        condition: service_healthy

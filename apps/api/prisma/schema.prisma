@@ -1,0 +1,14 @@
+generator client {
+  provider = "prisma-client-js"
+  }
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://SA:Password1!@localhost:5432/wex?schema=wex"
+}
+
+model user {
+  id           String @id @db.Uuid
+  email        String @db.VarChar(255)
+  passwordHash String @db.VarChar(255)
+}

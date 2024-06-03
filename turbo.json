@@ -1,0 +1,14 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "generate-backend-env-files":{},
+    "generate-frontend-env-files":{},
+    "build" :{},
+    "serve": {},
+    "lint": {},
+    "format": {},
+    "dev": {
+      "dependsOn": ["generate-backend-env-files", "generate-frontend-env-files"]
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { login as loginUser, register as registerUser } from "../api/auth";
-import { authContext,getUserFromStorage } from "../hooks/useAuth";
+import { authContext, getUserFromStorage } from "../hooks/useAuth";
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({
   children,

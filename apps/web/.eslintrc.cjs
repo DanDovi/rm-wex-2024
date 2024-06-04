@@ -16,6 +16,6 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
   },
 };

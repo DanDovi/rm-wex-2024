@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { signAccessToken } from "../utils/jwt";
+import createHttpError from "http-errors";
 import { v4 } from "uuid";
 import { z } from "zod";
-import createHttpError from "http-errors";
+
+import { signAccessToken } from "../utils/jwt";
 
 const registerUserSchema = z.object({
   email: z.string().email(),

@@ -37,5 +37,3 @@ export const authContext = createContext<IAuthContext>({
 export const useAuth = () => {
   return useContext(authContext);
 };
-
-

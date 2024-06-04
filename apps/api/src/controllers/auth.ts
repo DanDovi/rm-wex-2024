@@ -1,7 +1,7 @@
-import { authService } from "../services/auth";
-import createHttpError from "http-errors";
 import { NextFunction, Request, Response } from "express";
+import createHttpError from "http-errors";
 
+import { authService } from "../services/auth";
 import { ErrorWithStatus } from "../types/error";
 
 class authController {

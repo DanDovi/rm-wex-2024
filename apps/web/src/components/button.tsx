@@ -4,7 +4,7 @@ export const Button = (
   const { children, ...rest } = props;
   return (
     <button
-      className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+      className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
       {...rest}
     >
       {children}

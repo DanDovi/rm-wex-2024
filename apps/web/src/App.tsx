@@ -1,9 +1,9 @@
+import "./App.css";
+
 import { useRoutes } from "react-router-dom";
 
-import routes from "./routes";
-
-import "./App.css";
 import { useAuth } from "./hooks/useAuth";
+import routes from "./routes";
 
 function App() {
   const { user } = useAuth();

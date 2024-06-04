@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
-
-import { Button } from "../components/button";
-
 import { Link } from "react-router-dom";
 
+import { Button } from "../components/button";
+import { useAuth } from "../hooks/useAuth";
 import { ErrorWithMessage } from "../types";
 
 export const Register = () => {
@@ -31,28 +29,28 @@ export const Register = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 justify-center items-center h-screen max-w-2xl mx-auto">
-      <h1 className="text-2xl text-center font-bold mt-4 mb-4">Register</h1>
+    <div className="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center gap-4">
+      <h1 className="mb-4 mt-4 text-center text-2xl font-bold">Register</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-3/4 mx-auto gap-4 mb-4"
+        className="mx-auto mb-4 flex w-3/4 flex-col gap-4"
       >
         <input
-          className="p-2 border rounded-md"
+          className="rounded-md border p-2"
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="p-2 border rounded-md"
+          className="rounded-md border p-2"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
-          className="p-2 border rounded-md"
+          className="rounded-md border p-2"
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}

@@ -1,7 +1,7 @@
-import { verifyAccessToken } from "../utils/jwt";
+import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 
-import { NextFunction, Request, Response } from "express";
+import { verifyAccessToken } from "../utils/jwt";
 
 type RequestWithPayload = Request & { payload?: unknown };
 

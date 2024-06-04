@@ -6,6 +6,7 @@
     "build" :{},
     "serve": {},
     "lint": {},
+    "lint-fix": {},
     "format": {},
     "dev": {
       "dependsOn": ["generate-backend-env-files", "generate-frontend-env-files"]

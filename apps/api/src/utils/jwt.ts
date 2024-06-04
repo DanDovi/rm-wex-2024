@@ -1,7 +1,6 @@
-import jwt from "jsonwebtoken";
-import createError from "http-errors";
-
 import { config } from "dotenv";
+import createError from "http-errors";
+import jwt from "jsonwebtoken";
 
 config();
 

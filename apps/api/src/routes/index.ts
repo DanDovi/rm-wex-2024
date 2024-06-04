@@ -1,9 +1,8 @@
 import express, { Request, Response } from "express";
 import createError from "http-errors";
 
-import authRoutes from "./auth";
-
 import prisma from "../prisma";
+import authRoutes from "./auth";
 
 type ErrorWithStatus = Error & { status: number };
 

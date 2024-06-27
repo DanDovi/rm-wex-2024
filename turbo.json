@@ -3,13 +3,14 @@
   "tasks": {
     "generate-backend-env-files":{},
     "generate-frontend-env-files":{},
+    "generate-models": {},
     "build" :{},
     "serve": {},
     "lint": {},
     "lint-fix": {},
     "format": {},
     "dev": {
-      "dependsOn": ["generate-backend-env-files", "generate-frontend-env-files"]
+      "dependsOn": ["generate-backend-env-files", "generate-frontend-env-files", "generate-models"]
     }
   }
 }

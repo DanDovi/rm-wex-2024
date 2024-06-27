@@ -2,7 +2,8 @@ node_modules
 dist
 .DS_Store
 public/docs
-.ENV.*
+.ENV*
+.env*
 .turbo
 
 .vscode/*.code-workspace

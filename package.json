@@ -6,7 +6,6 @@
   "packageManager": "pnpm@8.15.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-db": "turbo serve && docker compose -p wex -f docker-compose.yml up --build",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",

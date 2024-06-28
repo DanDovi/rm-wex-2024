@@ -1,0 +1,13 @@
+{
+  "name": "start-db",
+  "version": "1.0.0",
+  "packageManager": "pnpm@8.15.1",
+  "scripts": {
+    "start-db": "docker compose -p wex -f ../../docker-compose.yml up --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}

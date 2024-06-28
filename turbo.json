@@ -4,13 +4,13 @@
     "generate-backend-env-files":{},
     "generate-frontend-env-files":{},
     "generate-models": {},
+    "start-db": {},
     "build" :{},
-    "serve": {},
     "lint": {},
     "lint-fix": {},
     "format": {},
     "dev": {
-      "dependsOn": ["generate-backend-env-files", "generate-frontend-env-files", "generate-models"]
+      "dependsOn": ["generate-backend-env-files", "generate-frontend-env-files", "generate-models", "start-db"]
     }
   }
 }

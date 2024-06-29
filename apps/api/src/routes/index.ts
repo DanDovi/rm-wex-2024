@@ -12,7 +12,7 @@ router.use("/auth", authRoutes);
 
 router.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
-  res.json(users.map((user) => ({ username: user.email })));
+  res.json(users.map((user) => ({ username: user.username })));
 });
 
 router.use(async (req, res, next) => {

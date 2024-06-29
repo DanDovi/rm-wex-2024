@@ -13,14 +13,14 @@ interface IRegisterResponse extends ILoginResponse {}
 
 interface ITokenWithPayload {
   payload?: {
-    email?: string;
+    username?: string;
   };
 }
 
 export const login = async (username: string, password: string) => {
   const result = await fetch(`${baseUrl}/auth/login`, {
     method: "POST",
-    body: JSON.stringify({ email: username, password }),
+    body: JSON.stringify({ username, password }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -40,7 +40,7 @@ export const login = async (username: string, password: string) => {
 
   const decodedToken = jwtDecode(accessToken) as ITokenWithPayload;
 
-  const resUserName = decodedToken?.payload?.email;
+  const resUserName = decodedToken?.payload?.username;
 
   if (!resUserName) {
     throw new Error("Login failed");
@@ -52,7 +52,7 @@ export const login = async (username: string, password: string) => {
 export const register = async (username: string, password: string) => {
   const result = await fetch(`${baseUrl}/auth/register`, {
     method: "POST",
-    body: JSON.stringify({ email: username, password }),
+    body: JSON.stringify({ username, password }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -76,7 +76,7 @@ export const register = async (username: string, password: string) => {
 
   console.log(decodedToken);
 
-  const resUserName = decodedToken?.payload?.email;
+  const resUserName = decodedToken?.payload?.username;
 
   if (!resUserName) {
     console.log("no username");

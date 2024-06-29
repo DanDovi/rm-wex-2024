@@ -7,7 +7,7 @@ import { z } from "zod";
 import { signAccessToken } from "../utils/jwt";
 
 const registerUserSchema = z.object({
-  email: z.string().email(),
+  username: z.string().min(3, "Username must be at least 6 characters").max(64, "Username must be at most 64 characters"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
@@ -24,13 +24,13 @@ class authService {
       );
     }
 
-    const { email, password } = validatedData.data;
+    const { username, password } = validatedData.data;
 
     const prisma = new PrismaClient();
 
     const userExists = await prisma.user.findFirst({
       where: {
-        email,
+        username,
       },
     });
 
@@ -44,7 +44,7 @@ class authService {
     const user = await prisma.user.create({
       data: {
         id,
-        email,
+        username,
         passwordHash: await bcrypt.hash(password, 10),
       },
     });
@@ -66,13 +66,13 @@ class authService {
       );
     }
 
-    const { email, password } = validatedData.data;
+    const { username, password } = validatedData.data;
 
     const prisma = new PrismaClient();
 
     const user = await prisma.user.findFirst({
       where: {
-        email,
+        username,
       },
     });
 

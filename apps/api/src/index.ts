@@ -18,8 +18,13 @@ app.use(
         callback(null, true);
       } else if (requestOrigin === "http://localhost:3001") {
         callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
+      } 
+      // Only for development
+      else if (requestOrigin == null) {
+        callback(null, true);
+      }
+      else {
+        callback(new Error(`${requestOrigin} Not allowed by CORS`));
       }
     },
   }),

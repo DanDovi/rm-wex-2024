@@ -5,6 +5,8 @@ import { Button } from "../components/button";
 import { useAuth } from "../hooks/useAuth";
 import { ErrorWithMessage } from "../types";
 
+import styles from "./auth.module.css";
+
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,21 +25,18 @@ export const Login = () => {
   };
 
   return (
-    <div className="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center gap-4">
-      <h1 className="mb-4 mt-4 text-center text-2xl font-bold">Login</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="mx-auto mb-4 flex w-3/4 flex-col gap-4"
-      >
+    <div className={styles.formContainer}>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
         <input
-          className="rounded-md border p-2"
+          className="formInput"
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="rounded-md border p-2"
+          className="formInput"
           type="password"
           placeholder="Password"
           value={password}
@@ -46,7 +45,7 @@ export const Login = () => {
         <Button type="submit">Login</Button>
       </form>
       {error && <p>{error}</p>}
-      <Link to="/register" className="text-blue-500 hover:underline">
+      <Link to="/register" className={styles.link}>
         Register
       </Link>
     </div>

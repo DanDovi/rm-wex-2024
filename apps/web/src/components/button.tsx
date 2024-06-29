@@ -1,10 +1,12 @@
+import styles from "./button.module.css";
+
 export const Button = (
   props: React.ButtonHTMLAttributes<HTMLButtonElement>,
 ) => {
-  const { children, ...rest } = props;
+  const { children, className, ...rest } = props;
   return (
     <button
-      className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+      className={`${styles.button}${className ? ` ${className}` :''}`}
       {...rest}
     >
       {children}

@@ -5,6 +5,8 @@ import { Button } from "../components/button";
 import { useAuth } from "../hooks/useAuth";
 import { ErrorWithMessage } from "../types";
 
+import styles from "./auth.module.css";
+
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,28 +31,27 @@ export const Register = () => {
   };
 
   return (
-    <div className="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center gap-4">
-      <h1 className="mb-4 mt-4 text-center text-2xl font-bold">Register</h1>
+    <div className={styles.formContainer}>
+      <h1>Register</h1>
       <form
         onSubmit={handleSubmit}
-        className="mx-auto mb-4 flex w-3/4 flex-col gap-4"
       >
         <input
-          className="rounded-md border p-2"
+          className="formInput"
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="rounded-md border p-2"
+          className="formInput"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
-          className="rounded-md border p-2"
+          className="formInput"
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}
@@ -59,7 +60,7 @@ export const Register = () => {
         <Button type="submit">Register</Button>
       </form>
       {error && <p>{error}</p>}
-      <Link to="/login" className="text-blue-500 hover:underline">
+      <Link to="/login" className={styles.link}>
         Already have an account? Login
       </Link>
     </div>

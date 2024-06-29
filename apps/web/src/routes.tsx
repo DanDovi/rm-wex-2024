@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { Shell } from "./components/shell";
 import { Login } from "./forms/login";
@@ -14,7 +14,7 @@ const ExampleLayout = ({ title }: { title?: string }) => {
   );
 };
 
-const routes = (isLoggedIn: boolean) => {
+const routes = (isLoggedIn: boolean): Array<RouteObject> => {
   return [
     {
       path: "/app",

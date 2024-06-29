@@ -2,12 +2,13 @@ import { Outlet } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
 import { Button } from "./button";
+import styles from "./shell.module.css";
 
 export const Shell = () => {
   const { logout } = useAuth();
   return (
     <div>
-      <header className="flex items-center justify-between bg-slate-700 px-6 py-3 text-white">
+      <header className={styles.shell}>
         <h1>My App</h1>
         <Button onClick={logout}>Logout</Button>
       </header>

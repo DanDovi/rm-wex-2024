@@ -8,7 +8,6 @@ import routes from "./routes";
 function App() {
   const { user } = useAuth();
   const renderedRoutes = useRoutes(routes(!!user.username));
-
   return renderedRoutes;
 }
 

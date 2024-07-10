@@ -3,14 +3,16 @@ import createError from "http-errors";
 
 import prisma from "../prisma";
 import authRoutes from "./auth";
-import topicRoutes from "./topic"
+import postRoutes from "./post";
+import topicRoutes from "./topic";
 
 type ErrorWithStatus = Error & { status: number };
 
 const router = express.Router();
 
 router.use("/auth", authRoutes);
-router.use("/topic", topicRoutes)
+router.use("/topic", topicRoutes);
+router.use("/post", postRoutes);
 
 router.get("/", async (req, res) => {
   const users = await prisma.user.findMany();

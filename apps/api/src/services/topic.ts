@@ -11,7 +11,7 @@ const createPostSchema = z.object({
   content: z
     .string()
     .min(8, "Description must be at least 1 character")
-    .max(255, "Description must be at most 255 characters"),
+    .max(255, "Description must be at most 255 characters"),})
 
 
 const getTopicByIdRequestSchema = z.object({

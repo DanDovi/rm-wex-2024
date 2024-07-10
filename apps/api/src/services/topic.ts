@@ -12,6 +12,10 @@ const createPostSchema = z.object({
     .string()
     .min(8, "Description must be at least 1 character")
     .max(255, "Description must be at most 255 characters"),
+
+
+const getTopicByIdRequestSchema = z.object({
+  id: z.string().uuid(),
 });
 
 class topicService {
@@ -29,7 +33,6 @@ class topicService {
         validatedData.error.errors[0].message,
       );
     }
-
     const { title, createdBy, topicId, content } = validatedData.data;
 
     const prisma = new PrismaClient();
@@ -55,6 +58,37 @@ class topicService {
     prisma.$disconnect();
     return post
 }
+
+  static async topicById(data: unknown) {
+    const prisma = new PrismaClient();
+    const validatedData = getTopicByIdRequestSchema.safeParse(data);
+    console.log("p 1");
+
+    if (!validatedData.success) {
+      console.log("error 1");
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+
+    
+    console.log("p 2");
+    const { id } = validatedData.data;
+
+    console.log(JSON.stringify(validatedData.data));
+
+    const topics = await prisma.topic.findMany({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
+    });
+    console.log(JSON.stringify(topics));
+    prisma.$disconnect();
+    console.log("p 3");
+    return topics;
+  }
 }
 
 export { topicService };

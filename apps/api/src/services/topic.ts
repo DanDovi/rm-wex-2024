@@ -69,11 +69,6 @@ class topicService {
       );
     }
 
-<<<<<<< HEAD
-    
-    console.log("p 2");
-=======
->>>>>>> main
     const { id } = validatedData.data;
 
     console.log(JSON.stringify(validatedData.data));

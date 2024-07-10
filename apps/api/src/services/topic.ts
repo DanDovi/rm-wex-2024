@@ -14,7 +14,7 @@ class topicService {
     return topics;
   }
 
-  static async topicById(data: unknown, filter: unknown) {
+  static async topicById(data: unknown) {
     const prisma = new PrismaClient();
     const validatedData = getTopicByIdRequestSchema.safeParse(data);
 
@@ -38,9 +38,32 @@ class topicService {
     console.log(JSON.stringify(topics));
     prisma.$disconnect();
 
-    if (filter == null) {
-      return topics;
+    return topics;
+  }
+
+  static async postsBytopicId(data: unknown) {
+    const prisma = new PrismaClient();
+    const validatedData = getTopicByIdRequestSchema.safeParse(data);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
     }
+
+    const { id } = validatedData.data;
+
+    console.log(JSON.stringify(validatedData.data));
+
+    const posts = await prisma.post.findMany({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
+    });
+    prisma.$disconnect();
+    return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
 }
 

@@ -33,12 +33,24 @@ class topicController {
       next(createHttpError(error.status, error.message));
     }
   }
+<<<<<<< HEAD
   static async createPost(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await topicService.createPost(req.body);
       res.json({
         status: 200,
         message: "Post created successfully",
+=======
+
+  static async postsByTopicId(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await topicService.postsBytopicId({
+        id: req.params["id"],
+      });
+      res.json({
+        status: 200,
+        message: "Posts by ID fetched successfully",
+>>>>>>> main
         data: result,
       });
     } catch (e) {
@@ -46,8 +58,12 @@ class topicController {
       next(createHttpError(error.status, error.message));
     }
   }
+<<<<<<< HEAD
     }
 
 
+=======
+}
+>>>>>>> main
 
 export { topicController };

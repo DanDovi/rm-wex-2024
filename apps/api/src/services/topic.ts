@@ -62,22 +62,23 @@ class topicService {
   static async topicById(data: unknown) {
     const prisma = new PrismaClient();
     const validatedData = getTopicByIdRequestSchema.safeParse(data);
-    console.log("p 1");
 
     if (!validatedData.success) {
-      console.log("error 1");
       throw new createHttpError.BadRequest(
         validatedData.error.errors[0].message,
       );
     }
 
+<<<<<<< HEAD
     
     console.log("p 2");
+=======
+>>>>>>> main
     const { id } = validatedData.data;
 
     console.log(JSON.stringify(validatedData.data));
 
-    const topics = await prisma.topic.findMany({
+    const topics = await prisma.topic.findFirst({
       where: {
         id: {
           equals: id,
@@ -86,8 +87,33 @@ class topicService {
     });
     console.log(JSON.stringify(topics));
     prisma.$disconnect();
-    console.log("p 3");
+
     return topics;
+  }
+
+  static async postsBytopicId(data: unknown) {
+    const prisma = new PrismaClient();
+    const validatedData = getTopicByIdRequestSchema.safeParse(data);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+
+    const { id } = validatedData.data;
+
+    console.log(JSON.stringify(validatedData.data));
+
+    const posts = await prisma.post.findMany({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
+    });
+    prisma.$disconnect();
+    return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
 }
 

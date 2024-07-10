@@ -5,6 +5,7 @@ import { authMiddleware } from "../middleware/auth";
 
 const router = Router();
 
-router.get("/", authMiddleware, topicController.allTopics);
+router.get("/", topicController.allTopics);
+router.post("/:id/posts", topicController.createPost);
 
 export default router;

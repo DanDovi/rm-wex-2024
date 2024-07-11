@@ -10,7 +10,9 @@ const getTopicByIdRequestSchema = z.object({
   id: z.string().uuid(),
 });
 
-
+const getPostsByTopicIdSchema = z.object({
+  topicId: z.string().uuid(),
+})
 
 class topicService {
   static async allTopics() {
@@ -45,6 +47,30 @@ class topicService {
     prisma.$disconnect();
 
     return topics;
+  }
+  static async postsByTopicId(data: unknown) { //THIS IS THE ONE YOU'RE IN THE MIDDLE OF EDITING
+    const prisma = new PrismaClient();
+    const validatedData = getPostsByTopicIdSchema.safeParse(data);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+
+    const { topicId } = validatedData.data;
+
+    console.log(JSON.stringify(validatedData.data));
+
+    const posts = await prisma.post.findMany({
+      where: {
+        topicId: {
+          equals: topicId,
+        },
+      },
+    });
+    prisma.$disconnect();
+    return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
 }
 

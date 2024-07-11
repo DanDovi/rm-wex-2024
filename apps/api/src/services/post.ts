@@ -4,9 +4,6 @@ import createHttpError from "http-errors";
 import { formatISO } from 'date-fns'
 import { v4 } from "uuid";
 
-const getPostsByTopicIdSchema = z.object({
-  topicId: z.string().uuid(),
-})
 
 const getPostByIdSchema = z.object({
   id: z.string().uuid(),
@@ -62,30 +59,7 @@ class postService {
     prisma.$disconnect();
     return post
   }
-  static async postsByTopicId(data: unknown) { //THIS IS THE ONE YOU'RE IN THE MIDDLE OF EDITING
-    const prisma = new PrismaClient();
-    const validatedData = getPostsByTopicIdSchema.safeParse(data);
-
-    if (!validatedData.success) {
-      throw new createHttpError.BadRequest(
-        validatedData.error.errors[0].message,
-      );
-    }
-
-    const { topicId } = validatedData.data;
-
-    console.log(JSON.stringify(validatedData.data));
-
-    const posts = await prisma.post.findMany({
-      where: {
-        topicId: {
-          equals: topicId,
-        },
-      },
-    });
-    prisma.$disconnect();
-    return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
-  }
+  
   static async postById(data: unknown) {
     const prisma = new PrismaClient();
     const validatedData = getPostByIdSchema.safeParse(data);

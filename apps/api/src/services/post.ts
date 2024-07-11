@@ -1,11 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
-import createHttpError from "http-errors";
 import { formatISO } from "date-fns";
+import createHttpError from "http-errors";
 import { v4 } from "uuid";
+import { z } from "zod";
 
 const getPostByIdSchema = z.object({
   id: z.string().uuid(),
+});
+
+const updatePostVoteSchema = z.object({
+  userId: z.string().uuid(),
+  postId: z.string().uuid(),
+  value: z.number(),
 });
 
 const createPostSchema = z.object({

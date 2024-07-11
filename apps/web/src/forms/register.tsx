@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/button";
 import { useAuth } from "../hooks/useAuth";
 import { ErrorWithMessage } from "../types";
-
 import styles from "./auth.module.css";
 
 export const Register = () => {

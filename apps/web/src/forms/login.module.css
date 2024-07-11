@@ -12,7 +12,6 @@
     justify-content: center;
     align-items: center;
     gap: var(--spacing-4);
-  
     /* max-width: 700px; */
   }
   
@@ -55,10 +54,7 @@
     text-decoration: underline;
   }
   
-.logo{
- 
-    
-}  
+
 
 .loginButton{
     width: 100px;

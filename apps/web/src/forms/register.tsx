@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import logo from "../assets/images/launchpad-logo.png";
+import { AuthBanner } from "../components/authBanner";
 import { Button } from "../components/button";
 import { useAuth } from "../hooks/useAuth";
 import { ErrorWithMessage } from "../types";
-import styles from "./auth.module.css";
+import styles from "./register.module.css";
 
 export const Register = () => {
   const [username, setUsername] = useState("");
@@ -34,38 +36,40 @@ export const Register = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h1>Register</h1>
-      <form
-        onSubmit={handleSubmit}
-      >
-        <input
-          className="formInput"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="formInput"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className="formInput"
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <Button type="submit">Register</Button>
-      </form>
-      {error && <p>{error}</p>}
-      <Link to="/login" className={styles.link}>
-        Already have an account? Login
-      </Link>
+    <div className={styles.register}>
+      <AuthBanner />
+      <div className={styles.formContainer}>
+        <img src={logo} alt="Launchpad logo" className={styles.logo} />
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="formInput"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="formInput"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            className="formInput"
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <Button type="submit">Register</Button>
+        </form>
+        {error && <p>{error}</p>}
+        <Link to="/login" className={styles.link}>
+          Already have an account? Login
+        </Link>
+      </div>
     </div>
   );
 };

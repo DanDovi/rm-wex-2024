@@ -57,33 +57,6 @@ export const Login = () => {
           Register
         </Link>
       </div>
-    <div className={styles.formContainer}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="formInput"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-
-        <input
-          className="formInput"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <Button type="submit">Login</Button>
-      </form>
-      {/* {password.length === 0 && <div>Please enter a password</div>} */}
-      {error && <p>{error}</p>}
-      <Link to="/register" className={styles.link}>
-        Register
-      </Link>
-    </div>
     </div>
   );
 };

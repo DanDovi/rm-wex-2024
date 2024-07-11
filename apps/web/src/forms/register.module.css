@@ -1,0 +1,53 @@
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-4);
+    
+    height: 100vh;
+    background-color: #E2C6B8;
+    img{
+      width: 500px;
+      height: 110px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+  
+      
+  
+    }
+}
+  
+  .formContainer form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    text-align: center;
+    margin: 0 auto;
+    width: 500px;
+
+  }
+  
+  .formContainer h1 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+
+    text-shadow: 0 0 3px #8a7a7a, 0 0 5px #0000FF
+    
+
+
+    
+  }
+  
+  .link {
+    color: #0070f3;
+    text-decoration: none;
+   
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+
+  }

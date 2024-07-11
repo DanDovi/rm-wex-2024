@@ -1,13 +1,15 @@
-.authBanner {
-    border: 4px solid #247e76;
-    padding: var(--spacing-5);
-
-    background-color: #34B2A7;
-
-    margin-top: var(--spacing-5);
-    color: white;
+.banner {
+ 
+  border: 4px solid teal;  
+  padding: var(--spacing--5);
+  background-color: #34B2A7;
+  margin-top: var(--spacing--5);
+  color: white
 }
-
-.logoImage{ 
+img{
+   
     height: 40px;
-}
+
+
+  }
+  

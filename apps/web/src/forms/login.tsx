@@ -5,7 +5,10 @@ import { Button } from "../components/button";
 import { useAuth } from "../hooks/useAuth";
 import { ErrorWithMessage } from "../types";
 
-import styles from "./auth.module.css";
+import styles from "./login.module.css";
+import logo from "../assets/images/launchpad-logo.png";
+import { AuthBanner } from "../components/authBanner";
+
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -25,29 +28,33 @@ export const Login = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="formInput"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="formInput"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit">Login</Button>
-      </form>
-      {error && <p>{error}</p>}
-      <Link to="/register" className={styles.link}>
-        Register
-      </Link>
+    <div className={styles.login}>
+      <AuthBanner />
+      <div className={styles.formContainer}>
+        <img src={logo} alt="Launchpad logo" className={styles.logo} />
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="formInput"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="formInput"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button className={styles.loginButton} type="submit">Login</Button>
+        </form>
+        {error && <p>{error}</p>}
+        <Link to="/register" className={styles.link}>
+          Register
+        </Link>
+      </div>
     </div>
   );
 };

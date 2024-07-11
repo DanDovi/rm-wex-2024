@@ -1,5 +1,5 @@
 .button {
-  background-color: #0070f3;
+  background-color: #FC6629;
   color: var(--color-white);
   padding: var(--spacing-3) var(--spacing-6);
   border-radius: var(--border-radius-2);
@@ -10,5 +10,6 @@
 }
 
 .button:hover {
-  background-color: #0053b3;
+  background-color: #6627CD;
+  text-emphasis-color: black;
 }

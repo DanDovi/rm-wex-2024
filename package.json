@@ -10,12 +10,13 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint-fix": "turbo lint-fix",
-    "format": "turbo format"
+    "format": "turbo format",
+    "seed-db": "turbo seed-db"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "turbo": "^2.0.5"
+    "turbo": "2.0.6"
   }
 }

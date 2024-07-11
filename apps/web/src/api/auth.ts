@@ -57,10 +57,13 @@ export const register = async (username: string, password: string) => {
       "Content-Type": "application/json",
     },
   });
+  if (result.status === 401) {
+    throw new Error("Username already used, please enter a different username")
 
-  if (result.status !== 200) {
+  }
+  else if (result.status !== 200) {
     console.log("not 200");
-    throw new Error("Register failed");
+    throw new Error("Registration failed");
   }
 
   const resJson = (await result.json()) as IRegisterResponse;
@@ -69,7 +72,7 @@ export const register = async (username: string, password: string) => {
 
   if (!accessToken) {
     console.log("no access token");
-    throw new Error("Register failed");
+    throw new Error("Registration failed");
   }
 
   const decodedToken = jwtDecode(accessToken) as ITokenWithPayload;
@@ -80,7 +83,7 @@ export const register = async (username: string, password: string) => {
 
   if (!resUserName) {
     console.log("no username");
-    throw new Error("Register failed");
+    throw new Error("Registration Failed");
   }
 
   return { username: resUserName, accessToken };

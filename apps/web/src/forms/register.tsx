@@ -23,8 +23,16 @@ export const Register = () => {
       }
       if (username.length === 0) {
         setError("Error, please enter a username");
+
         return;
       }
+      if (password.length > 30 || username.length > 30) {
+        setError(
+          "Error, Your username or password is over the 30 character limit",
+        );
+        return;
+      }
+
       setError("");
       await register(username, password);
     } catch (e) {
@@ -36,9 +44,7 @@ export const Register = () => {
   return (
     <div className={styles.formContainer}>
       <h1>Register</h1>
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <input
           className="formInput"
           type="text"

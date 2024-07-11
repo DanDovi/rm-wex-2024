@@ -36,7 +36,9 @@ class authService {
 
     if (userExists) {
       prisma.$disconnect();
-      throw new Error("User already exists");
+      throw new createHttpError.Unauthorized(
+        "Username has already been used",
+      );
     }
 
     const id = v4();

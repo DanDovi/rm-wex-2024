@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-const searchBar = () => {
+import { useState } from 'react'
+const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
 
   return (
@@ -12,4 +12,4 @@ const searchBar = () => {
     </div>
   )
 }
-export default searchBar;
+export default SearchBar;

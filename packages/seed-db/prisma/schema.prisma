@@ -8,7 +8,68 @@ datasource db {
 }
 
 model user {
-  id           String @id @db.Uuid
-  username     String @unique @db.VarChar(255)
-  passwordHash String @db.VarChar(255)
+  id           String    @id @db.Uuid
+  username     String    @unique @db.VarChar(255)
+  passwordHash String    @db.VarChar(255)
+  comment      comment[]
+  post         post[]
+  topic        topic[]
+  vote         vote[]
+}
+
+model comment {
+  id              String    @id @db.Uuid
+  content         String
+  postId          String    @db.Uuid
+  parentCommentId String?   @db.Uuid
+  createdBy       String    @db.Uuid
+  createdAt       DateTime  @db.Timestamp(6)
+  updatedAt       DateTime  @db.Timestamp(6)
+  deletedAt       DateTime? @db.Timestamp(6)
+  user            user      @relation(fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comment         comment?  @relation("commentTocomment", fields: [parentCommentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  other_comment   comment[] @relation("commentTocomment")
+  post            post      @relation(fields: [postId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  vote            vote[]
+}
+
+model post {
+  id        String    @id @db.Uuid
+  title     String    @db.VarChar(255)
+  content   String
+  topicId   String    @db.Uuid
+  createdBy String    @db.Uuid
+  createdAt DateTime  @db.Timestamp(6)
+  updatedAt DateTime  @db.Timestamp(6)
+  deletedAt DateTime? @db.Timestamp(6)
+  comment   comment[]
+  user      user      @relation(fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  topic     topic     @relation(fields: [topicId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  vote      vote[]
+}
+
+model topic {
+  id          String   @id @db.Uuid
+  title       String   @unique @db.VarChar(64)
+  description String   @db.VarChar(255)
+  createdBy   String   @db.Uuid
+  createdAt   DateTime @db.Timestamp(6)
+  updatedAt   DateTime @db.Timestamp(6)
+  post        post[]
+  user        user     @relation(fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model vote {
+  id        String    @id @db.Uuid
+  postId    String    @db.Uuid
+  commentId String?   @db.Uuid
+  userId    String    @db.Uuid
+  vote      Int       @db.SmallInt
+  createdAt DateTime  @db.Timestamp(6)
+  updatedAt DateTime  @db.Timestamp(6)
+  deletedAt DateTime? @db.Timestamp(6)
+  comment   comment?  @relation(fields: [commentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  post      post      @relation(fields: [postId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user      user      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

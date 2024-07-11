@@ -5,6 +5,7 @@
     "generate-frontend-env-files":{},
     "generate-models": {},
     "start-db": {},
+    "seed-db": {},
     "build" :{},
     "lint": {},
     "lint-fix": {},

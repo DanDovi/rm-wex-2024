@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
+import { formatISO } from "date-fns";
 import createHttpError from "http-errors";
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import { v4 } from "uuid";
+import { z } from "zod";
 
 const createPostSchema = z.object({
   title: z.string().min(1, "Title must be at least 1 character").max(64, "Username must be at most 64 characters"),
@@ -37,9 +37,7 @@ class topicService {
 
     const prisma = new PrismaClient();
 
-    // const date = new Date().getDate();
-    const { createdAt } = require("date-fns")
-    const { updatedAt } = require("date-fns")
+    const isoDate = formatISO(new Date());
 
     const id = v4();
 
@@ -48,8 +46,8 @@ class topicService {
         id,
         title,
         createdBy,
-        createdAt,
-        updatedAt,
+        createdAt: isoDate,
+        updatedAt: isoDate,
         topicId,
         content,
       },

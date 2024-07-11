@@ -5,14 +5,17 @@ import { v4 } from "uuid";
 import { z } from "zod";
 
 const createPostSchema = z.object({
-  title: z.string().min(1, "Title must be at least 1 character").max(64, "Username must be at most 64 characters"),
+  title: z
+    .string()
+    .min(1, "Title must be at least 1 character")
+    .max(64, "Username must be at most 64 characters"),
   createdBy: z.string(),
   topicId: z.string(),
   content: z
     .string()
     .min(8, "Description must be at least 1 character")
-    .max(255, "Description must be at most 255 characters"),})
-
+    .max(255, "Description must be at most 255 characters"),
+});
 
 const getTopicByIdRequestSchema = z.object({
   id: z.string().uuid(),
@@ -54,8 +57,8 @@ class topicService {
     });
 
     prisma.$disconnect();
-    return post
-}
+    return post;
+  }
 
   static async topicById(data: unknown) {
     const prisma = new PrismaClient();
@@ -78,7 +81,6 @@ class topicService {
         },
       },
     });
-    console.log(JSON.stringify(topics));
     prisma.$disconnect();
 
     return topics;

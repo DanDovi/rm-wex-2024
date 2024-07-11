@@ -21,6 +21,10 @@ export const Register = () => {
         setError("Passwords do not match");
         return;
       }
+      if (username.length === 0) {
+        setError("Error, please enter a username");
+        return;
+      }
       setError("");
       await register(username, password);
     } catch (e) {

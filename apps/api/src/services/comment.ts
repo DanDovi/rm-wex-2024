@@ -19,7 +19,6 @@ class commentService {
     console.log(data, null, 2);
 
     if (!validatedData.success) {
-      console.log(JSON.stringify(validatedData, null, 2));
       throw new createHttpError.BadRequest(
         validatedData.error.errors[0].message,
       );
@@ -38,31 +37,43 @@ class commentService {
       },
     });
     if (existingVote) {
-      prisma.vote.update({
-        data: {
-          vote: value,
-        },
-        where: {
-          id: existingVote.id,
-          updatedAt: isoDate,
-        },
-      });
+      if (value === 0) {
+        await prisma.vote.delete({
+          where: {
+            id: existingVote.id,
+          },
+        });
+      } else {
+        await prisma.vote.update({
+          data: {
+            vote: value,
+            updatedAt: isoDate,
+          },
+          where: {
+            id: existingVote.id,
+          },
+        });
+      }
     } else {
-      const id = v4();
-      await prisma.vote.create({
-        data: {
-          id: id,
-          postId: postId,
-          vote: value,
-          commentId: commentId,
-          userId: userId,
-          createdAt: isoDate,
-          updatedAt: isoDate,
-        },
-      });
-    }
+      if (value === 0) {
+        throw new createHttpError.BadRequest("Vote does not exist");
+      } else {
+        const id = v4();
+        await prisma.vote.create({
+          data: {
+            id: id,
+            postId: postId,
+            vote: value,
+            commentId: commentId,
+            userId: userId,
+            createdAt: isoDate,
+            updatedAt: isoDate,
+          },
+        });
+      }
 
-    prisma.$disconnect();
+      prisma.$disconnect();
+    }
   }
 }
 

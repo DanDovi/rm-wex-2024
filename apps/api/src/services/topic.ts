@@ -31,38 +31,6 @@ class topicService {
     prisma.$disconnect();
     return topics;
   }
-  static async createPost(data: unknown) {
-    const validatedData = createPostSchema.safeParse(data);
-
-    if (!validatedData.success) {
-      throw new createHttpError.BadRequest(
-        validatedData.error.errors[0].message,
-      );
-    }
-    const { title, createdBy, topicId, content } = validatedData.data;
-
-    const prisma = new PrismaClient();
-
-    const isoDate = formatISO(new Date());
-
-    const id = v4();
-
-    const post = await prisma.post.create({
-      data: {
-        id,
-        title,
-        createdBy,
-        createdAt: isoDate,
-        updatedAt: isoDate,
-        topicId,
-        content,
-      },
-    });
-
-    prisma.$disconnect();
-    return post;
-  }
-
   static async topicById(data: unknown) {
     const prisma = new PrismaClient();
     const validatedData = getTopicByIdRequestSchema.safeParse(data);

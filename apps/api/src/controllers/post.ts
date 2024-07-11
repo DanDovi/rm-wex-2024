@@ -18,6 +18,19 @@ class postController {
       next(createHttpError(error.status, error.message));
     }
   }
+  static async createPost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await postService.createPost(req.body);
+      res.json({
+        status: 200,
+        message: "Post created successfully",
+        data: result,
+      });
+    } catch (e) {
+      const error = e as ErrorWithStatus;
+      next(createHttpError(error.status, error.message));
+    }
+  }
 
   static async postById(req: Request, res: Response, next: NextFunction) {
     try {

@@ -37,8 +37,6 @@ class postService {
     const { title, createdBy, topicId, content } = validatedData.data;
 
     const prisma = new PrismaClient();
-
-    // const date = new Date().getDate();
     
     const currentTime = formatISO(new Date());
 

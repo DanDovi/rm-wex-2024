@@ -1,0 +1,13 @@
+.authBanner {
+    border: 4px solid #247e76;
+    padding: var(--spacing-5);
+
+    background-color: #34B2A7;
+
+    margin-top: var(--spacing-5);
+    color: white;
+}
+
+.logoImage{ 
+    height: 40px;
+}

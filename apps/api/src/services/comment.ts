@@ -38,17 +38,19 @@ class commentService {
     });
     if (existingVote) {
       if (value === 0) {
-        prisma.vote.delete({
-          where: existingVote,
+        await prisma.vote.delete({
+          where: {
+            id: existingVote.id,
+          },
         });
       } else {
-        prisma.vote.update({
+        await prisma.vote.update({
           data: {
             vote: value,
+            updatedAt: isoDate,
           },
           where: {
             id: existingVote.id,
-            updatedAt: isoDate,
           },
         });
       }

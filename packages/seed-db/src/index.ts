@@ -39,10 +39,7 @@ interface IComment {
   parentCommentId?: string;
 }
 
-const createUserIfNotExists = async (
-  prisma: PrismaClient,
-  user: IUser
-) => {
+const createUserIfNotExists = async (prisma: PrismaClient, user: IUser) => {
   const existingUser = await prisma.user.findFirst({
     where: {
       username: user.username,
@@ -56,17 +53,14 @@ const createUserIfNotExists = async (
   }
 };
 
-const createTopicIfNotExists = async (
-  prisma: PrismaClient,
-  topic: ITopic
-) => {
+const createTopicIfNotExists = async (prisma: PrismaClient, topic: ITopic) => {
   const existingTopic = await prisma.topic.findFirst({
     where: {
       id: topic.id,
       OR: [
         {
           title: topic.title,
-        }
+        },
       ],
     },
   });
@@ -76,12 +70,9 @@ const createTopicIfNotExists = async (
       data: topic,
     });
   }
-}
+};
 
-const createPostIfNotExists = async (
-  prisma: PrismaClient,
-  post: IPost
-) => {
+const createPostIfNotExists = async (prisma: PrismaClient, post: IPost) => {
   const existingPost = await prisma.post.findFirst({
     where: {
       id: post.id,
@@ -93,7 +84,7 @@ const createPostIfNotExists = async (
       data: post,
     });
   }
-}
+};
 
 const createCommentIfNotExists = async (
   prisma: PrismaClient,
@@ -110,7 +101,7 @@ const createCommentIfNotExists = async (
       data: comment,
     });
   }
-}
+};
 
 const main = async () => {
   const prisma = new PrismaClient();
@@ -139,7 +130,7 @@ const main = async () => {
     passwordHash: hashForPassword,
   };
 
-  console.log("Inserting users...")
+  console.log("Inserting users...");
   for (const user of [testUser, testUser2, testUser3, testUser4]) {
     await createUserIfNotExists(prisma, user);
   }
@@ -153,7 +144,7 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     description: "This is the first topic",
-  }
+  };
 
   const topic2: ITopic = {
     id: "9b4301c9-e0a7-42df-ae7a-e4740f461378",
@@ -162,14 +153,12 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     description: "This is the second topic",
-  }
+  };
 
-
-  console.log("Inserting topics...")
+  console.log("Inserting topics...");
   for (const topic of [topic1, topic2]) {
     await createTopicIfNotExists(prisma, topic);
   }
-
 
   const post1: IPost = {
     id: "7f994fa5-811a-49af-94d7-95f995d708ed",
@@ -179,7 +168,7 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     topicId: topic1.id,
-  }
+  };
 
   const post2: IPost = {
     id: "839bf9b2-3d5f-411f-944b-6544cf297c91",
@@ -189,7 +178,7 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     topicId: topic1.id,
-  }
+  };
 
   const post3: IPost = {
     id: "c3f3e1f2-2e5e-4c8e-9e1a-8a1c6d8b4d4c",
@@ -199,9 +188,9 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     topicId: topic2.id,
-  }
+  };
 
-  console.log("Inserting posts...")
+  console.log("Inserting posts...");
   for (const post of [post1, post2, post3]) {
     await createPostIfNotExists(prisma, post);
   }
@@ -213,7 +202,7 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     postId: post1.id,
-  }
+  };
 
   const comment2 = {
     id: "4ae76c87-9aae-4bc5-82cd-941f1b3288ae",
@@ -222,7 +211,7 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     postId: post1.id,
-  }
+  };
 
   const comment3 = {
     id: "f4e0932f-f624-42d1-93f2-4685505780c8",
@@ -232,7 +221,7 @@ const main = async () => {
     updatedAt: currentDate,
     postId: post1.id,
     parentCommentId: comment1.id,
-  }
+  };
 
   const comment4 = {
     id: "8890fb5e-e052-4bda-86d8-fe278d2bf482",
@@ -241,7 +230,7 @@ const main = async () => {
     createdAt: currentDate,
     updatedAt: currentDate,
     postId: post2.id,
-  }
+  };
 
   const comment5 = {
     id: "0d7b5934-0d3a-4248-8400-01ee5a504a11",
@@ -251,9 +240,9 @@ const main = async () => {
     updatedAt: currentDate,
     postId: post2.id,
     parentCommentId: comment4.id,
-  }
+  };
 
-  console.log("Inserting comments...")
+  console.log("Inserting comments...");
   for (const comment of [comment1, comment2, comment3, comment4, comment5]) {
     await createCommentIfNotExists(prisma, comment);
   }

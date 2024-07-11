@@ -4,24 +4,25 @@ import createHttpError from "http-errors";
 import { v4 } from "uuid";
 import { z } from "zod";
 
-
-
 const getTopicByIdRequestSchema = z.object({
   id: z.string().uuid(),
 });
 
 const getPostsByTopicIdSchema = z.object({
   topicId: z.string().uuid(),
-})
+});
 
 const createTopicSchema = z.object({
-  title: z.string().min(1, "Title must be at least 1 character").max(64, "Title must be at most 64 characters"),
+  title: z
+    .string()
+    .min(1, "Title must be at least 1 character")
+    .max(64, "Title must be at most 64 characters"),
   createdBy: z.string().uuid(),
   description: z
     .string()
     .min(1, "Description must be at least 1 character")
-    .max(255, "Description must be at most 255 characters"),})
-
+    .max(255, "Description must be at most 255 characters"),
+});
 
 class topicService {
   static async allTopics() {
@@ -29,6 +30,37 @@ class topicService {
     const topics = await prisma.topic.findMany();
     prisma.$disconnect();
     return topics;
+  }
+  static async createPost(data: unknown) {
+    const validatedData = createPostSchema.safeParse(data);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+    const { title, createdBy, topicId, content } = validatedData.data;
+
+    const prisma = new PrismaClient();
+
+    const isoDate = formatISO(new Date());
+
+    const id = v4();
+
+    const post = await prisma.post.create({
+      data: {
+        id,
+        title,
+        createdBy,
+        createdAt: isoDate,
+        updatedAt: isoDate,
+        topicId,
+        content,
+      },
+    });
+
+    prisma.$disconnect();
+    return post;
   }
 
   static async topicById(data: unknown) {
@@ -52,7 +84,6 @@ class topicService {
         },
       },
     });
-    console.log(JSON.stringify(topics));
     prisma.$disconnect();
 
     return topics;
@@ -91,9 +122,8 @@ class topicService {
     }
     const { title, createdBy, description } = validatedData.data;
 
-    const prisma = new PrismaClient();   
+    const prisma = new PrismaClient();
     const currentTime = formatISO(new Date());
-
 
     const topic = await prisma.topic.create({
       data: {
@@ -107,9 +137,8 @@ class topicService {
     });
 
     prisma.$disconnect();
-    return topic
+    return topic;
   }
-  
 }
 
 export { topicService };

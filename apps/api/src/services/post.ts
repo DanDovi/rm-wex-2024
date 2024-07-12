@@ -116,16 +116,35 @@ class postService {
 
     console.log(JSON.stringify(validatedData.data));
 
-    const posts = await prisma.post.findFirst({
+    const post = await prisma.post.findFirst({
+      include: {
+        topic: true,
+        user: true,
+      },
       where: {
         id: {
           equals: id,
         },
       },
     });
-    prisma.$disconnect();
 
-    return posts;
+    if (!post) {
+      throw new createHttpError.NotFound("No post under specified ID");
+    }
+
+    const postVotes = await prisma.vote.aggregate({
+      _sum: {
+        vote: true,
+      },
+      where: {
+        postId: post.id,
+        commentId: null,
+      },
+    });
+    const amountOfVotes = postVotes._sum;
+
+    prisma.$disconnect();
+    return { ...post, postVote: amountOfVotes };
   }
   static async newComment(data: unknown) {
     const validatedData = newCommentSchema.safeParse(data);

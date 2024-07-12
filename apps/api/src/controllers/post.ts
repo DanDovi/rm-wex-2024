@@ -20,7 +20,10 @@ class postController {
   }
   static async createPost(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await postService.createPost(req.body);
+      const result = await postService.createPost({
+        topicId: req.params.topicId,
+        ...req.body,
+      });
       res.json({
         status: 200,
         message: "Post created successfully",

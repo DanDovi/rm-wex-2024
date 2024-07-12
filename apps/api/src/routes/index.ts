@@ -5,6 +5,7 @@ import prisma from "../prisma";
 import authRoutes from "./auth";
 import commentRoutes from "./comment";
 import postRoutes from "./post";
+import searchRoutes from "./search";
 import topicRoutes from "./topic";
 
 type ErrorWithStatus = Error & { status: number };
@@ -15,6 +16,7 @@ router.use("/auth", authRoutes);
 router.use("/topic", topicRoutes);
 router.use("/post", postRoutes);
 router.use("/comment", commentRoutes);
+router.use("/search", searchRoutes);
 
 router.get("/", async (req, res) => {
   const users = await prisma.user.findMany();

@@ -11,4 +11,7 @@ router.post(
   commentController.updateCommentByIdVote,
 );
 
+router.get("/:id", commentController.commentById);
+router.get("/", authMiddleware, commentController.allComments);
+
 export default router;

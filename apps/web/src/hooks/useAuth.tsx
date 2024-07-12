@@ -7,6 +7,8 @@ interface IAuthContext {
   user: { username?: string };
   login: (username: string, password: string) => void;
   register: (username: string, password: string) => void;
+  createpost: (title: string, body: string) => void;
+  createtopic: (title: string, desc: string) => void;
   logout: () => void;
 }
 
@@ -32,6 +34,8 @@ export const authContext = createContext<IAuthContext>({
   login: async () => {},
   register: async () => {},
   logout: () => {},
+  createpost: () => {},
+  createtopic: () => {},
 });
 
 export const useAuth = () => {

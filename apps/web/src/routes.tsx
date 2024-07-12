@@ -1,7 +1,8 @@
-import { Navigate, Outlet, RouteObject } from "react-router-dom";
+import { Link, Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { Shell } from "./components/shell";
 import { Login } from "./forms/login";
+import { NewTopic } from "./forms/newtopic";
 import { Register } from "./forms/register";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -20,7 +21,19 @@ const routes = (isLoggedIn: boolean): Array<RouteObject> => {
       path: "/app",
       element: isLoggedIn ? <Shell /> : <Navigate to="/login" />,
       children: [
-        { path: "dashboard", element: <ExampleLayout title="dashboard" /> },
+        {
+          path: "dashboard",
+          element: <Link to="/app/topic/new">New Topic</Link>,
+        },
+        {
+          path: "topic",
+          children: [
+            {
+              path: "new",
+              element: <NewTopic />,
+            },
+          ],
+        },
         { path: "account", element: <ExampleLayout title="account" /> },
         { path: "", element: <Navigate to="/app/dashboard" /> },
         {

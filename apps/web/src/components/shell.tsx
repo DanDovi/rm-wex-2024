@@ -10,7 +10,7 @@ export const Shell = () => {
   return (
     <div>
       <header className={styles.shell}>
-        <h1>My App</h1>
+        <h1>LaunchPad</h1>
         <SearchBar />
         <Button onClick={logout}>Logout</Button>
       </header>

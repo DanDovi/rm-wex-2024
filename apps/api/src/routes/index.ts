@@ -3,6 +3,7 @@ import createError from "http-errors";
 
 import prisma from "../prisma";
 import authRoutes from "./auth";
+import commentRoutes from "./comment";
 import postRoutes from "./post";
 import topicRoutes from "./topic";
 
@@ -13,6 +14,7 @@ const router = express.Router();
 router.use("/auth", authRoutes);
 router.use("/topic", topicRoutes);
 router.use("/post", postRoutes);
+router.use("/comment", commentRoutes);
 
 router.get("/", async (req, res) => {
   const users = await prisma.user.findMany();

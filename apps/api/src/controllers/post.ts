@@ -18,6 +18,19 @@ class postController {
       next(createHttpError(error.status, error.message));
     }
   }
+  static async createPost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await postService.createPost(req.body);
+      res.json({
+        status: 200,
+        message: "Post created successfully",
+        data: result,
+      });
+    } catch (e) {
+      const error = e as ErrorWithStatus;
+      next(createHttpError(error.status, error.message));
+    }
+  }
 
   static async postById(req: Request, res: Response, next: NextFunction) {
     try {
@@ -25,6 +38,19 @@ class postController {
       res.json({
         status: 200,
         message: "Posts by ID fetched successfully",
+        data: result,
+      });
+    } catch (e) {
+      const error = e as ErrorWithStatus;
+      next(createHttpError(error.status, error.message));
+    }
+  }
+  static async newComment(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await postService.newComment(req.body);
+      res.json({
+        status: 200,
+        message: "Comment created successfully",
         data: result,
       });
     } catch (e) {

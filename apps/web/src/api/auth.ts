@@ -58,7 +58,7 @@ export const register = async (username: string, password: string) => {
     },
   });
 
-  if(result.status === 401) {
+  if (result.status === 401) {
     // TODO: Make this use the message/status from the API
     throw new Error("Username already exists");
   }

@@ -2,15 +2,13 @@ import { PrismaClient } from "@prisma/client";
 import createHttpError from "http-errors";
 import { z } from "zod";
 
-
-
 const getTopicByIdRequestSchema = z.object({
   id: z.string().uuid(),
 });
 
 const getPostsByTopicIdSchema = z.object({
   topicId: z.string().uuid(),
-})
+});
 
 class topicService {
   static async allTopics() {
@@ -46,7 +44,8 @@ class topicService {
 
     return topics;
   }
-  static async postsByTopicId(data: unknown) { //THIS IS THE ONE YOU'RE IN THE MIDDLE OF EDITING
+  static async postsByTopicId(data: unknown) {
+    //THIS IS THE ONE YOU'RE IN THE MIDDLE OF EDITING
     const prisma = new PrismaClient();
     const validatedData = getPostsByTopicIdSchema.safeParse(data);
 

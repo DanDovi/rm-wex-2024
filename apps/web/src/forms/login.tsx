@@ -15,11 +15,10 @@ export const Login = () => {
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-
     e.preventDefault();
     try {
       if (username.length === 0 || password.length === 0) {
-        setError("Please enter a username or password")
+        setError("Please enter a username or password");
         return;
       }
       await login(username, password);
@@ -50,7 +49,9 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button className={styles.loginButton} type="submit">Login</Button>
+          <Button className={styles.loginButton} type="submit">
+            Login
+          </Button>
         </form>
         {error && <p>{error}</p>}
         <Link to="/register" className={styles.link}>

@@ -4,7 +4,6 @@ import createHttpError from "http-errors";
 import { topicService } from "../services/topic";
 import { ErrorWithStatus } from "../types/error";
 
-
 class topicController {
   static async allTopics(req: Request, res: Response, next: NextFunction) {
     try {
@@ -20,9 +19,11 @@ class topicController {
     }
   }
   static async postsByTopicId(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params["topicId"])
+    console.log(req.params["topicId"]);
     try {
-      const result = await topicService.postsByTopicId({topicId: req.params["topicId"]});
+      const result = await topicService.postsByTopicId({
+        topicId: req.params["topicId"],
+      });
       res.json({
         status: 200,
         message: "Posts by ID fetched successfully",

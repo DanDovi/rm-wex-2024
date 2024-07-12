@@ -11,7 +11,7 @@ This platform will allow users to:
 - Up and down vote posts and comments
 - Search for posts
   
-The platfor will also have a homepage that explains what Rockit is.
+The platform will also have a homepage that explains what Rockit is.
 
 ## Getting Started
 

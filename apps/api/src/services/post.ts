@@ -1,22 +1,25 @@
 import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
+import { formatISO } from "date-fns";
 import createHttpError from "http-errors";
-import { formatISO } from 'date-fns'
 import { v4 } from "uuid";
-
+import { z } from "zod";
 
 const getPostByIdSchema = z.object({
   id: z.string().uuid(),
 });
 
 const createPostSchema = z.object({
-  title: z.string().min(1, "Title must be at least 1 character").max(64, "Username must be at most 64 characters"),
+  title: z
+    .string()
+    .min(1, "Title must be at least 1 character")
+    .max(64, "Username must be at most 64 characters"),
   createdBy: z.string(),
   topicId: z.string().uuid(),
   content: z
     .string()
     .min(1, "Description must be at least 1 character")
-    .max(255, "Description must be at most 255 characters"),})
+    .max(255, "Description must be at most 255 characters"),
+});
 
 const newCommentSchema = z.object({
   createdBy: z.string(),
@@ -49,7 +52,6 @@ class postService {
     
     const currentTime = formatISO(new Date());
 
-
     const post = await prisma.post.create({
       data: {
         id: v4(),
@@ -59,14 +61,14 @@ class postService {
         updatedAt: currentTime,
         topicId,
         content,
-        deletedAt: null
+        deletedAt: null,
       },
     });
 
     prisma.$disconnect();
-    return post
+    return post;
   }
-  
+
   static async postById(data: unknown) {
     const prisma = new PrismaClient();
     const validatedData = getPostByIdSchema.safeParse(data);

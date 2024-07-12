@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaClientRustPanicError } from "@prisma/client/runtime/library";
 import { formatISO } from "date-fns";
 import createHttpError from "http-errors";
 import { v4 } from "uuid";

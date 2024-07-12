@@ -8,6 +8,10 @@ const getPostByIdSchema = z.object({
   id: z.string().uuid(),
 });
 
+const getCommentByPostIdSchema = z.object({
+  id: z.string().uuid(),
+});
+
 const updatePostVoteSchema = z.object({
   userId: z.string().uuid(),
   postId: z.string().uuid(),
@@ -127,6 +131,50 @@ class postService {
 
     return posts;
   }
+
+  static async commentsByPost(data: unknown) {
+    const prisma = new PrismaClient();
+    const validatedData = getCommentByPostIdSchema.safeParse(data);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+
+    const { id } = validatedData.data;
+
+    console.log(JSON.stringify(validatedData.data));
+
+    
+
+    const comments = await prisma.comment.findMany({
+      where: {
+        postId: {
+          equals: id}
+        // },
+        // parentCommentId: {
+        //   equals: null
+        // }
+      }
+  })
+      // for (let i = 0; i<comments.length; i++) {
+      //   const placeholder = await prisma.comment.findMany({
+      //     where: {
+      //       parentCommentId: {
+      //         equals: comments[i].commentId
+      //       }
+      //     }
+      //   })
+      // }
+    
+
+
+    prisma.$disconnect();
+
+    return comments;
+  }
+
   static async newComment(data: unknown) {
     const validatedData = newCommentSchema.safeParse(data);
 

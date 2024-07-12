@@ -8,6 +8,7 @@ const router = Router();
 router.post("/register", authController.registerUser);
 router.post("/login", authController.loginUser);
 router.get("/users", authMiddleware, authController.allUsers);
+router.get("/me", authMiddleware, authController.me);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Necessary for express error handling
 router.use((err: unknown, req: Request, res: Response, next: NextFunction) => {

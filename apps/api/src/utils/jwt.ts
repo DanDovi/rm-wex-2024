@@ -10,9 +10,9 @@ if (!accessTokenSecret) {
   throw new Error("ACCESS_TOKEN_SECRET must be provided");
 }
 
-const signAccessToken = (payload: unknown) => {
+const signAccessToken = (payload: object) => {
   return new Promise((resolve, reject) => {
-    jwt.sign({ payload }, accessTokenSecret, {}, (err, token) => {
+    jwt.sign({ ...payload }, accessTokenSecret, {}, (err, token) => {
       if (err) {
         reject(createError.InternalServerError());
       }

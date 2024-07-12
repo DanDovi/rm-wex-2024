@@ -45,6 +45,29 @@ class authController {
       next(createHttpError(error.status, error.message));
     }
   }
+
+  static async me(req: Request & {
+    payload?: { id?: string; username: string };
+  }, res: Response, next: NextFunction) {
+
+    const id = req.payload?.id;
+
+    if (!id) {
+      return next(createHttpError(401, "Unauthorized"));
+    }
+
+    try {
+      const result = await authService.me(id);
+      res.json({
+        status: 200,
+        message: "User fetched",
+        data: result,
+      });
+    } catch (e) {
+      const error = e as ErrorWithStatus;
+      next(createHttpError(error.status, error.message));
+    }
+  }
 }
 
 export { authController };

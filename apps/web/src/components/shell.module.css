@@ -1,9 +1,85 @@
 .shell {
-/* flex items-center justify-between bg-slate-700 px-6 py-3 text-white */
+  /* flex items-center justify-between bg-slate-700 px-6 py-3 text-white */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-slate-900);
+  background-color: var(--color-teal);
   padding: var(--spacing-4) var(--spacing-6);
-  color: var(--color-white);
+
+  .logout {
+    background-color: #fc6629;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+
+    padding: var(--spacing-2) var(--spacing-4);
+
+    box-shadow: -4px 4px 0 0 black;
+  }
+
+  .logout:hover {
+    background-color: white;
+    color: black
+  }
+
+  .logout:active {
+    transform: translate(-4px, 4px);
+    box-shadow: none;
+  
+  }
+  
+  .writePostButton {
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+
+    padding: var(--spacing-2) var(--spacing-4);
+
+    box-shadow: -4px 4px 0 0 black;
+  }
+
+  .writePostButton:hover {
+    background-color: white;
+    color: black
+  }
+
+  .writePostButton:active {
+    transform: translate(-4px, 4px);
+    box-shadow: none;
+
+  }
+}
+
+.notifyButton {
+  background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+
+    padding: var(--spacing-2) var(--spacing-4);
+
+    box-shadow: -4px 4px 0 0 black;
+}
+
+.notifyButton:hover {
+  background-color: white;
+    color: black
+}
+
+.notifyButton:active {
+  transform: translate(-4px, 4px);
+    box-shadow: none;
+
+}
+
+.logo {
+  height: 35px;
+}
+
+body {
+  background-color: #E2C6B8;
 }

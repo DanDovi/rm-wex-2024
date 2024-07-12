@@ -7,18 +7,20 @@ import { authContext, getUserFromStorage } from "../hooks/useAuth";
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [user, setUser] = useState<{ username?: string }>(getUserFromStorage());
+  const [user, setUser] = useState<{ username?: string, userId?: string }>(getUserFromStorage());
 
   const navigate = useNavigate();
 
   const login = async (username: string, password: string) => {
-    const { username: resUserName, accessToken } = await loginUser(
+    const { username: resUserName, accessToken, userId } = await loginUser(
       username,
       password,
     );
-    const storedUser = JSON.stringify({ username: resUserName, accessToken });
-    localStorage.setItem("token", storedUser);
-    setUser({ username: resUserName });
+
+    const userDetails: IUserDetails = { username: resUserName, accessToken, userId };
+
+    storeUserDetails(userDetails);
+    setUser({ username: resUserName, userId });
     navigate("/app/dashboard");
   };
 
@@ -29,13 +31,15 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
   };
 
   const register = async (username: string, password: string) => {
-    const { username: resUserName, accessToken } = await registerUser(
+    const { username: resUserName, accessToken, userId } = await registerUser(
       username,
       password,
     );
-    const storedUser = JSON.stringify({ username: resUserName, accessToken });
-    localStorage.setItem("token", storedUser);
-    setUser({ username: resUserName });
+
+    const userDetails: IUserDetails = { username: resUserName, accessToken, userId };
+
+    storeUserDetails(userDetails);
+    setUser({ username: resUserName, userId });
     navigate("/app/dashboard");
   };
 

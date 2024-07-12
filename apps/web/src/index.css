@@ -23,9 +23,11 @@ html {
   --color-slate-700: #999999;
   --color-slate-800: #898989;
   --color-slate-900: #797979;
-
+  --color-teal: #34B2A7;
+  --color-yellow: #FFB72D;
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-blush: '#E2C6B8';
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;

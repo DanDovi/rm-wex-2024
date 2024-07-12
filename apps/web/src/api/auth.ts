@@ -11,10 +11,9 @@ interface ILoginResponse {
 
 interface IRegisterResponse extends ILoginResponse {}
 
-interface ITokenWithPayload {
-  payload?: {
-    username?: string;
-  };
+interface IToken {
+  id: string;
+  username?: string;
 }
 
 export const login = async (username: string, password: string) => {
@@ -32,21 +31,27 @@ export const login = async (username: string, password: string) => {
 
   const resJson = (await result.json()) as ILoginResponse;
 
+  console.log(resJson);
+
   const accessToken = resJson.data.accessToken;
 
   if (!accessToken) {
+    console.log("no access token");
     throw new Error("Login failed");
   }
 
-  const decodedToken = jwtDecode(accessToken) as ITokenWithPayload;
+  const decodedToken = jwtDecode(accessToken) as IToken;
 
-  const resUserName = decodedToken?.payload?.username;
+  const resUserName = decodedToken?.username;
+
+  console.log(decodedToken);
 
   if (!resUserName) {
+    console.log("no username");
     throw new Error("Login failed");
   }
 
-  return { username: resUserName, accessToken };
+  return { username: resUserName, accessToken, userId: decodedToken.id };
 };
 
 export const register = async (username: string, password: string) => {
@@ -77,16 +82,17 @@ export const register = async (username: string, password: string) => {
     throw new Error("Registration failed");
   }
 
-  const decodedToken = jwtDecode(accessToken) as ITokenWithPayload;
+  const decodedToken = jwtDecode(accessToken) as IToken;
 
   console.log(decodedToken);
 
-  const resUserName = decodedToken?.payload?.username;
+  const resUserName = decodedToken?.username;
+  const resId = decodedToken?.id;
 
   if (!resUserName) {
     console.log("no username");
     throw new Error("Registration failed");
   }
 
-  return { username: resUserName, accessToken };
+  return { username: resUserName, accessToken, userId: resId };
 };

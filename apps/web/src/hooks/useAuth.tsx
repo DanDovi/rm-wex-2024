@@ -4,7 +4,7 @@
 import { createContext, useContext } from "react";
 
 interface IAuthContext {
-  user: { username?: string };
+  user: { username?: string, id?: string};
   login: (username: string, password: string) => void;
   register: (username: string, password: string) => void;
   logout: () => void;

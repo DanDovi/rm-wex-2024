@@ -111,6 +111,17 @@ class authService {
     prisma.$disconnect();
     return users.map((user) => ({ ...user, passwordHash: undefined }));
   }
+
+  static async me(id: string) {
+    const prisma = new PrismaClient();
+    const user = await prisma.user.findFirst({
+      where: {
+        id,
+      },
+    });
+    prisma.$disconnect();
+    return { ...user, passwordHash: undefined };
+  }
 }
 
 export { authService };

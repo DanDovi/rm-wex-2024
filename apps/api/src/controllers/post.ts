@@ -56,7 +56,7 @@ class postController {
   ) {
     try {
       const result = await postService.updatePostVote({
-        commentId: req.params.id,
+        postId: req.params.postId,
         ...req.body,
       });
       res.json({

@@ -58,8 +58,8 @@ class postService {
             commentId: null,
           },
         });
-
-        return { ...post, postVotes };
+        const amountOfVotes = postVotes._sum;
+        return { ...post, postVote: amountOfVotes };
       }),
     );
 
@@ -160,8 +160,6 @@ class postService {
 
   static async updatePostVote(data: unknown) {
     const validatedData = updatePostVoteSchema.safeParse(data);
-
-    console.log(data, null, 2);
 
     if (!validatedData.success) {
       throw new createHttpError.BadRequest(

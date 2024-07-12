@@ -49,6 +49,20 @@ class postController {
     }
   }
 
+  static async commentsByPost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await postService.commentsByPost({ id: req.params.id });
+      res.json({
+        status: 200,
+        message: "Comments by Post fetched successfully",
+        data: result,
+      });
+    } catch (e) {
+      const error = e as ErrorWithStatus;
+      next(createHttpError(error.status, error.message));
+    }
+  }
+
   static async updatePostByIdVote(
     req: Request,
     res: Response,

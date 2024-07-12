@@ -21,24 +21,29 @@ class searchService{
         }
     
         const { searchTerm } = validatedData.data;
-    
-        console.log(JSON.stringify(validatedData.data));
-    
-        const topics = await prisma.post.findMany({
-          where: {
-            OR: [
-                {
-                    title: {
-                        
-                    }
-                }
-            ]
-          },
-        });
+        
+        
+        const posts = await prisma.post.findMany({
+            where: {
+                OR: [
+                    {
+                        title: {
+                            contains: searchTerm,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        content: {
+                            contains: searchTerm,
+                            mode: 'insensitive'
+                        }
+                    }]
+            }
+            })
         prisma.$disconnect();
-    
-        return topics;
-      }
+        return posts
+    } 
+      
 }
 
 export { searchService };

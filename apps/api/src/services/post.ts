@@ -21,6 +21,15 @@ const createPostSchema = z.object({
     .max(255, "Description must be at most 255 characters"),
 });
 
+const newCommentSchema = z.object({
+  createdBy: z.string(),
+  postId: z.string().uuid(),
+  parentCommentId: z.string().uuid().nullable(),
+  content: z
+    .string()
+    .min(1, "Description must be at least 1 character")
+    .max(255, "Description must be at most 255 characters"),})
+
 class postService {
   static async allPosts() {
     const prisma = new PrismaClient();
@@ -40,9 +49,7 @@ class postService {
     const { title, createdBy, topicId, content } = validatedData.data;
 
     const prisma = new PrismaClient();
-
-    // const date = new Date().getDate();
-
+    
     const currentTime = formatISO(new Date());
 
     const post = await prisma.post.create({
@@ -87,5 +94,37 @@ class postService {
 
     return posts;
   }
+  static async newComment(data: unknown) {
+    const validatedData = newCommentSchema.safeParse(data);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+    const { createdBy, postId, parentCommentId, content } = validatedData.data;
+
+    const prisma = new PrismaClient();
+    
+    const currentTime = formatISO(new Date());
+
+
+    const post = await prisma.comment.create({
+      data: {
+        id: v4(),
+        content,
+        createdBy,
+        createdAt: currentTime,
+        updatedAt: currentTime,
+        postId,
+        parentCommentId,
+        deletedAt: null
+      },
+    });
+
+    prisma.$disconnect();
+    return post
+  }
+
 }
 export { postService };

@@ -40,10 +40,35 @@ const newCommentSchema = z.object({
 class postService {
   static async allPosts() {
     const prisma = new PrismaClient();
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: {
+        topic: true,
+        user: true,
+      },
+    });
+
+    const postsWithVotes = await Promise.all(
+      posts.map(async (post) => {
+        const postVotes = await prisma.vote.aggregate({
+          _sum: {
+            vote: true,
+          },
+          where: {
+            postId: post.id,
+            commentId: null,
+          },
+        });
+        const amountOfVotes = postVotes._sum;
+        return { ...post, postVote: amountOfVotes };
+      }),
+    );
+
     prisma.$disconnect();
     posts.slice(0, 50);
-    return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    const postSorted = postsWithVotes.sort(
+      (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
+    );
+    return postSorted;
   }
   static async createPost(data: unknown) {
     const validatedData = createPostSchema.safeParse(data);
@@ -135,8 +160,6 @@ class postService {
 
   static async updatePostVote(data: unknown) {
     const validatedData = updatePostVoteSchema.safeParse(data);
-
-    console.log(data, null, 2);
 
     if (!validatedData.success) {
       throw new createHttpError.BadRequest(

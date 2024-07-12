@@ -1,0 +1,65 @@
+.newtopic{
+    background-color: #e2c6b8;
+    height: 100vh;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-4);
+    
+}
+
+.formContainer form input {
+    background: color #fff3dd;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    align-items: center;
+    margin: 0 auto;
+    width: 500px;
+    border-width: 2px;
+    border-color: navy;
+    input {
+        width: 100%;
+        
+      }
+}
+
+.formContainer form {
+    flex-direction: column;
+    display: flex;
+    gap: var(--spacing-5);
+    
+  }
+  
+  .formContainer h1 {
+    box-shadow: #34b2a7;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+  }
+  
+  .createTopicButton {
+    width: 100px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+  }
+
+p {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: navy;
+
+    /* change the font here later*/
+    font-family: Arial, Helvetica, sans-serif;
+}

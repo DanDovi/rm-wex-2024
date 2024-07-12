@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { createTopic } from "../api/topic";
+import { AuthBanner } from "../components/authBanner";
 import { Button } from "../components/button";
 import { ErrorWithMessage } from "../types";
-import styles from "./login.module.css";
+import styles from "./newtopic.module.css";
 
 export const NewTopic = () => {
   const [title, setTitle] = useState("");
@@ -14,11 +15,15 @@ export const NewTopic = () => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       await createTopic(title, createdBy, description);
+      navigate("/app/dashboard");
     } catch (e) {
       const errorWithMessage = e as ErrorWithMessage;
       setError(errorWithMessage.message);
@@ -26,26 +31,31 @@ export const NewTopic = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h1>Create Topic</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="Title"
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <h3 onChange={(e) => setAuthor(e.target.value)}>Authors name here</h3>
-        <input
-          className="text"
-          type="text"
-          placeholder="your post's text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <Button type="submit">Create Topic</Button>
-      </form>
+    <div className={styles.newtopic}>
+      <AuthBanner />
+      <div className={styles.formContainer}>
+        <form onSubmit={handleSubmit}>
+          <p>Title</p>
+          <input
+            className="Title"
+            type="text"
+            placeholder=""
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <p>Body (Optional)</p>
+          <input
+            className="text"
+            type="text"
+            placeholder=""
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <Button type="submit" className={styles.createTopicButton}>
+            Publish
+          </Button>
+        </form>
+      </div>
 
       {error && <p>{error}</p>}
       <Link to="/app/topics" className={styles.link}></Link>

@@ -72,7 +72,10 @@ class postController {
 
   static async newComment(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await postService.newComment(req.body);
+      const result = await postService.newComment({
+        postId: req.params.postId,
+        ...req.body,
+      });
       res.json({
         status: 200,
         message: "Comment created successfully",

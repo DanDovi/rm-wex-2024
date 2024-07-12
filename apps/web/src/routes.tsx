@@ -23,14 +23,14 @@ const routes = (isLoggedIn: boolean): Array<RouteObject> => {
       path: "/app",
       element: isLoggedIn ? <Shell /> : <Navigate to="/login" />,
       children: [
-      
         { path: "dashboard", element: <Dashboard /> },
+        // Not a child as topic doesn't have an outlet
+        { path: "topic/:topicId/post/:postId", element: <Post /> },
         {
           path: "topic/:topicId",
           element: <Topic />,
-          children: [{ path: "post/:postId", element: <Post /> }],
         },
-        
+
         {
           path: "member",
           element: <Outlet />,
@@ -59,7 +59,7 @@ const routes = (isLoggedIn: boolean): Array<RouteObject> => {
     {
       path: "*",
       element: <Navigate to="/app/dashboard" />,
-    }
+    },
   ];
 };
 

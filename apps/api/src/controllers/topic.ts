@@ -19,10 +19,9 @@ class topicController {
     }
   }
   static async postsByTopicId(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params["topicId"]);
     try {
       const result = await topicService.postsByTopicId({
-        topicId: req.params["topicId"],
+        topicId: req.params.topicId,
       });
       res.json({
         status: 200,

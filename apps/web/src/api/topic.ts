@@ -1,21 +1,23 @@
+import { getUserDetails } from "../utils/authToken";
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+export interface ITopic {
+  id: string;
+  title: string;
+  description: string;
+}
 
 export const createTopic = async (
   title: string,
   createdBy: string,
   description: string,
 ) => {
-  const tokenJson = localStorage.getItem("token");
+  const userDetails = getUserDetails();
 
-  if (!tokenJson) {
+  if (!userDetails) {
     console.error("no token");
     return;
-  }
-
-  const tokenObj = JSON.parse(tokenJson);
-
-  if (!tokenObj?.accessToken || typeof tokenObj.accessToken === "string") {
-    console.error("Invalid token obj");
   }
 
   const result = await fetch(`${baseUrl}/topic/create`, {
@@ -23,11 +25,34 @@ export const createTopic = async (
     body: JSON.stringify({ title, createdBy, description }),
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenObj.accessToken}`,
+      Authorization: `Bearer ${userDetails.accessToken}`,
     },
   });
 
   if (result.status !== 200) {
     throw new Error("create topic failed");
   }
+};
+
+export const getAllTopics = async () => {
+  const userDetails = getUserDetails();
+
+  if (!userDetails) {
+    console.error("no token");
+    return;
+  }
+
+  const result = await fetch(`${baseUrl}/topic/`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userDetails.accessToken}`,
+    },
+  });
+  if (result.status !== 200) {
+    throw new Error("failed to fetch topics");
+  }
+  const responseJson = await result.json();
+
+  return responseJson.data as ITopic[];
 };

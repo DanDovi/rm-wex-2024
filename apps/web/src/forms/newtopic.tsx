@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { createTopic } from "../api/topic";
-import { AuthBanner } from "../components/authBanner";
 import { Button } from "../components/button";
 import { ErrorWithMessage } from "../types";
 import styles from "./newtopic.module.css";
@@ -32,7 +31,6 @@ export const NewTopic = () => {
 
   return (
     <div className={styles.newtopic}>
-      <AuthBanner />
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit}>
           <p>Title</p>

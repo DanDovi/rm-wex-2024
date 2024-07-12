@@ -34,7 +34,8 @@ const newCommentSchema = z.object({
   content: z
     .string()
     .min(1, "Description must be at least 1 character")
-    .max(255, "Description must be at most 255 characters"),})
+    .max(255, "Description must be at most 255 characters"),
+});
 
 class postService {
   static async allPosts() {
@@ -111,9 +112,8 @@ class postService {
     const { createdBy, postId, parentCommentId, content } = validatedData.data;
 
     const prisma = new PrismaClient();
-    
-    const currentTime = formatISO(new Date());
 
+    const currentTime = formatISO(new Date());
 
     const post = await prisma.comment.create({
       data: {
@@ -124,12 +124,12 @@ class postService {
         updatedAt: currentTime,
         postId,
         parentCommentId,
-        deletedAt: null
+        deletedAt: null,
       },
     });
 
     prisma.$disconnect();
-    return post
+    return post;
   }
 
   static async updatePostVote(data: unknown) {

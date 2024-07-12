@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/", authMiddleware, topicController.allTopics);
 router.get("/:id", authMiddleware, topicController.topicById);
-router.get("/:id/posts", authMiddleware, topicController.postsByTopicId);
+router.get("/:topicId/posts", authMiddleware, topicController.postsByTopicId);
 router.post("/create", authMiddleware, topicController.createTopic);
 
 export default router;

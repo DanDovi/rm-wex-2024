@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { formatISO } from "date-fns";
+import { create } from "domain";
 import createHttpError from "http-errors";
 import { v4 } from "uuid";
 import { z } from "zod";
@@ -77,9 +78,15 @@ class topicService {
         },
       },
     });
+
+    if (!posts) {
+      throw new createHttpError[404]("No posts found for that topicId");
+    }
+
     prisma.$disconnect();
     return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
+
   static async createTopic(data: unknown) {
     const validatedData = createTopicSchema.safeParse(data);
 

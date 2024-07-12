@@ -71,6 +71,10 @@ class topicService {
     console.log(JSON.stringify(validatedData.data));
 
     const posts = await prisma.post.findMany({
+      include: {
+        topic: true,
+        user: true,
+      },
       where: {
         topicId: {
           equals: topicId,
@@ -78,13 +82,32 @@ class topicService {
       },
     });
 
+    const postsWithVotes = await Promise.all(
+      posts.map(async (post) => {
+        const postVotes = await prisma.vote.aggregate({
+          _sum: {
+            vote: true,
+          },
+          where: {
+            postId: post.id,
+            commentId: null,
+          },
+        });
+        const amountOfVotes = postVotes._sum;
+        return { ...post, postVote: amountOfVotes };
+      }),
+    );
+
     if (posts.length === 0) {
       //If no posts found, send error
       throw new createHttpError.NotFound("No posts found for that topicId");
     }
 
     prisma.$disconnect();
-    return posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    const postSorted = postsWithVotes.sort(
+      (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
+    );
+    return postSorted;
   }
 
   static async createTopic(data: unknown) {

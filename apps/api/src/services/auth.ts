@@ -7,7 +7,10 @@ import { z } from "zod";
 import { signAccessToken } from "../utils/jwt";
 
 const registerUserSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters").max(64, "Username must be at most 64 characters"),
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(64, "Username must be at most 64 characters"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
@@ -36,7 +39,7 @@ class authService {
 
     if (userExists) {
       prisma.$disconnect();
-      throw new Error("User already exists");
+      throw new createHttpError.Conflict("Username has already been used");
     }
 
     const id = v4();
@@ -107,6 +110,17 @@ class authService {
     const users = await prisma.user.findMany();
     prisma.$disconnect();
     return users.map((user) => ({ ...user, passwordHash: undefined }));
+  }
+
+  static async me(id: string) {
+    const prisma = new PrismaClient();
+    const user = await prisma.user.findFirst({
+      where: {
+        id,
+      },
+    });
+    prisma.$disconnect();
+    return { ...user, passwordHash: undefined };
   }
 }
 

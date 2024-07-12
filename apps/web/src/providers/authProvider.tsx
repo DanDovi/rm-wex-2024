@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { login as loginUser, register as registerUser } from "../api/auth";
 import { authContext, getUserFromStorage } from "../hooks/useAuth";
+import { IUserDetails, storeUserDetails } from "../utils/authToken";
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({
   children,

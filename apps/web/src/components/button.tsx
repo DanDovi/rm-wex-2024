@@ -6,7 +6,7 @@ export const Button = (
   const { children, className, ...rest } = props;
   return (
     <button
-      className={`${styles.button}${className ? ` ${className}` :''}`}
+      className={`${styles.button}${className ? ` ${className}` : ""}`}
       {...rest}
     >
       {children}

@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+
 import { useAuth } from "../hooks/useAuth";
 import { NotificationButton } from "./notificationButton";
 import {Button} from "./button";
@@ -11,12 +12,10 @@ import pencilIcon from "../assets/images/pencil-tile.png";
 export const Shell = () => {
   const { logout } = useAuth();
   return (
-    <div>
-      <header className={styles.shell}>
-        <img src={logo} alt="notifyButton" className={styles.logo} />
-        <h1></h1>
-    
-
+    <div className={styles.shell}>
+      <header className={styles.shellHeader}>
+      <img src={logo} alt="notifyButton" className={styles.logo} />
+        <h1>My App</h1>
         <SearchBar />
         <NotificationButton onClick={logout}>
           <img src={notifyButton} alt="notifyButton" className={styles.logo} />

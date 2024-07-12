@@ -2,12 +2,13 @@
   background-color: var(--color-orange);
   color: var(--color-white);
   padding: var(--spacing-3) var(--spacing-6);
-  border-radius: var(--border-radius-2);
+  border-radius: var(--border-radius-3);
   cursor: pointer;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   transition: background-color 0.2s;
 
+  border: 2px solid var(--color-navy);
   box-shadow: -4px 4px 0px 0px var(--color-navy);
 }
 

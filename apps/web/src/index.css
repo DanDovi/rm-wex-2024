@@ -30,11 +30,12 @@ html {
   --color-navy: #0c2a3d;
   --color-cream: #fff3dd;
   --color-blush: #e2c6b8;
-  --color-white: #ffffff;
 
   --color-white: #ffffff;
   --color-black: #000000;
-  --color-blush: '#E2C6B8';
+  --color-blush: #E2C6B8;
+
+  --background-color: var(--color-blush);
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;

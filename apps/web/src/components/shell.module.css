@@ -6,6 +6,10 @@
   background-color: var(--color-teal);
   padding: var(--spacing-4) var(--spacing-6);
 
+  h1 {
+    color: var(--color-white);
+  }
+
   .logout {
     background-color: #fc6629;
     color: black;
@@ -81,8 +85,8 @@
 }
 
 body {
-  background-color: #E2C6B8;
-  color: var(--color-white);
+  background-color: var(--background-color);
+  color: var(--color-navy);
 }
 
 .shell {

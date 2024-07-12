@@ -14,7 +14,7 @@ export const Shell = () => {
   return (
     <div className={styles.shell}>
       <header className={styles.shellHeader}>
-      <img src={logo} alt="notifyButton" className={styles.logo} />
+        <img src={logo} alt="notifyButton" className={styles.logo} />
         <h1>My App</h1>
         <SearchBar />
         <NotificationButton onClick={logout}>

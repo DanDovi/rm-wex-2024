@@ -8,6 +8,12 @@ const getPostByIdSchema = z.object({
   id: z.string().uuid(),
 });
 
+const updatePostVoteSchema = z.object({
+  userId: z.string().uuid(),
+  postId: z.string().uuid(),
+  value: z.number(),
+});
+
 const createPostSchema = z.object({
   title: z
     .string()
@@ -124,6 +130,67 @@ class postService {
 
     prisma.$disconnect();
     return post;
+  }
+
+  static async updatePostVote(data: unknown) {
+    const validatedData = updatePostVoteSchema.safeParse(data);
+
+    console.log(data, null, 2);
+
+    if (!validatedData.success) {
+      throw new createHttpError.BadRequest(
+        validatedData.error.errors[0].message,
+      );
+    }
+
+    const { userId, postId, value } = validatedData.data;
+
+    const prisma = new PrismaClient();
+    const isoDate = formatISO(new Date());
+
+    const existingVote = await prisma.vote.findFirst({
+      where: {
+        postId: postId,
+        userId: userId,
+      },
+    });
+    if (existingVote) {
+      if (value === 0) {
+        await prisma.vote.delete({
+          where: {
+            id: existingVote.id,
+          },
+        });
+      } else {
+        await prisma.vote.update({
+          data: {
+            vote: value,
+            updatedAt: isoDate,
+          },
+          where: {
+            id: existingVote.id,
+          },
+        });
+      }
+    } else {
+      if (value === 0) {
+        throw new createHttpError.BadRequest("Vote does not exist");
+      } else {
+        const id = v4();
+        await prisma.vote.create({
+          data: {
+            id: id,
+            postId: postId,
+            vote: value,
+            userId: userId,
+            createdAt: isoDate,
+            updatedAt: isoDate,
+          },
+        });
+      }
+
+      prisma.$disconnect();
+    }
   }
 }
 export { postService };

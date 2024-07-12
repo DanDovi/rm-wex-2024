@@ -130,7 +130,6 @@ class postService {
 
     prisma.$disconnect();
     return post;
-    return post;
   }
 
   static async updatePostVote(data: unknown) {

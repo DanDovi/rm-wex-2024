@@ -8,8 +8,8 @@ import styles from "./shell.module.css";
 export const Shell = () => {
   const { logout } = useAuth();
   return (
-    <div>
-      <header className={styles.shell}>
+    <div className={styles.shell}>
+      <header className={styles.shellHeader}>
         <h1>My App</h1>
         <SearchBar />
         <Button onClick={logout}>Logout</Button>

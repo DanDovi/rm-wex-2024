@@ -1,4 +1,4 @@
-.shell {
+.shellHeader {
   /* flex items-center justify-between bg-slate-700 px-6 py-3 text-white */
   display: flex;
   align-items: center;
@@ -6,4 +6,10 @@
   background-color: var(--color-slate-900);
   padding: var(--spacing-4) var(--spacing-6);
   color: var(--color-white);
+}
+
+.shell {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
 }

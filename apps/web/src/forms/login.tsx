@@ -18,7 +18,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       if (username.length === 0 || password.length === 0) {
-        setError("Please enter a username or password");
+        setError("Please enter a username and password");
         return;
       }
       await login(username, password);

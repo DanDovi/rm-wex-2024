@@ -11,7 +11,7 @@ html {
 
 :root {
 
-  --color-primary: #2b3a42;
+  --color-primary: var(--color-navy);
   --color-secondary: #f9f9f9;
   
   --color-slate-100: #f9f9f9;
@@ -23,6 +23,15 @@ html {
   --color-slate-700: #999999;
   --color-slate-800: #898989;
   --color-slate-900: #797979;
+
+  --color-orange: #fc6629;
+  --color-yellow: #ffb72d;
+  --color-teal: #34b2a7;
+  --color-purple: #6627cd;
+  --color-navy: #0c2a3d;
+  --color-cream: #fff3dd;
+  --color-blush: #e2c6b8;
+  --color-white: #ffffff;
 
   --color-white: #ffffff;
   --color-black: #000000;

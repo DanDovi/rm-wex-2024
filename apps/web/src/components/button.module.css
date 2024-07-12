@@ -1,5 +1,5 @@
 .button {
-  background-color: #FC6629;
+  background-color: var(--color-orange);
   color: var(--color-white);
   padding: var(--spacing-3) var(--spacing-6);
   border-radius: var(--border-radius-2);
@@ -7,9 +7,16 @@
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   transition: background-color 0.2s;
+
+  box-shadow: -4px 4px 0px 0px var(--color-navy);
 }
 
 .button:hover {
   background-color: #6627CD;
   text-emphasis-color: black;
+}
+
+.button:active {
+  transform: translate(-4px, 4px);
+  box-shadow: none;
 }

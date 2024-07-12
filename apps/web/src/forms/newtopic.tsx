@@ -8,7 +8,9 @@ import styles from "./login.module.css";
 
 export const NewTopic = () => {
   const [title, setTitle] = useState("");
-  const [createdBy, setAuthor] = useState("");
+  const [createdBy, setAuthor] = useState(
+    "1a2a4afe-87bb-4719-a430-cbf7b5529328",
+  );
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
 

@@ -5,8 +5,8 @@ import prisma from "../prisma";
 import authRoutes from "./auth";
 import commentRoutes from "./comment";
 import postRoutes from "./post";
+import searchRoutes from "./search";
 import topicRoutes from "./topic";
-import searchRoutes from "./search"
 
 type ErrorWithStatus = Error & { status: number };
 

@@ -79,6 +79,7 @@ class topicService {
     });
 
     if (posts.length === 0) {
+      //If no posts found, send error
       throw new createHttpError.NotFound("No posts found for that topicId");
     }
 

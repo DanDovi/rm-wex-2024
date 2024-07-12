@@ -15,12 +15,12 @@ const updatePostVoteSchema = z.object({
 });
 
 const createPostSchema = z.object({
+  topicId: z.string().uuid(),
   title: z
     .string()
     .min(1, "Title must be at least 1 character")
     .max(64, "Username must be at most 64 characters"),
-  createdBy: z.string(),
-  topicId: z.string().uuid(),
+  createdBy: z.string().uuid(),
   content: z
     .string()
     .min(1, "Description must be at least 1 character")
@@ -53,7 +53,8 @@ class postService {
         validatedData.error.errors[0].message,
       );
     }
-    const { title, createdBy, topicId, content } = validatedData.data;
+
+    const { topicId, title, createdBy, content } = validatedData.data;
 
     const prisma = new PrismaClient();
 

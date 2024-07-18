@@ -6,6 +6,7 @@ import { Register } from "./forms/register";
 import { Dashboard } from "./views/dashboard";
 import { Post } from "./views/post";
 import { Topic } from "./views/topic";
+import { CreateComment } from "./views/createComment";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ExampleLayout = ({ title }: { title?: string }) => {
@@ -30,7 +31,7 @@ const routes = (isLoggedIn: boolean): Array<RouteObject> => {
           path: "topic/:topicId",
           element: <Topic />,
         },
-
+        { path: "create-comment", element: <CreateComment />},
         {
           path: "member",
           element: <Outlet />,
